@@ -42,8 +42,8 @@ node {
     
     stage('Run a container') {
         sh 'echo "hello world"'
-        sh "docker stop hellnode & docker rm hellnode"
+        sh "docker stop hellnode"
+        sh "docker rm hellnode"
         sh "docker run --name=hellnode -d -p 8000:8000 localhost:5000/${image_name}"
-        /*sh "docker logs hellnode"*/
     }
 }
