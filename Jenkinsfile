@@ -42,7 +42,8 @@ node {
     
     stage('Run a container') {
         sh 'echo "hello world"'
-        sh "docker run --name=hellnode -it -p 8000:8000 ${image_name}"
+        sh "docker run --name=hellnode -i -p 8000:8000 localhost:5000/${image_name}"
+        sh "curl localhost:8000"
         sh "docker logs hellnode"
     }
 }
