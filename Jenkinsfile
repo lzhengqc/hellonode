@@ -1,6 +1,7 @@
 node {
     def app
-
+    def image_name = "getintodevops/hellonode"
+    
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
@@ -11,7 +12,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("getintodevops/hellonode:${env.BUILD_NUMBER}")
+        app = docker.build("${image_name}:${env.BUILD_NUMBER}")
     }
 
     stage('Test image') {
@@ -41,5 +42,7 @@ node {
     
     stage('Run a container') {
         sh 'echo "hello world"'
+        sh "docker run --name=hellnode -it -p 8000:8000 ${image_name}"
+        sh "docker logs hellnode"
     }
 }
