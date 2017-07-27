@@ -44,7 +44,11 @@ node {
         sh 'echo "hello world"'
         sh "docker stop hellnode"
         sh "docker rm hellnode"
-        sh "docker run --name=hellnode -d -p 8000:8000 localhost:5000/${image_name}"
+        try {
+          sh "docker run --name=hellnode -d -p 8000:8000 localhost:5000/${image_name}"  
+        }catch(Exception ex) {
+            println("Catching the exception" + ex);
+        }
         sh 'echo "http://192.168.33.100:8000"'
     }
 }
